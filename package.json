@@ -4,7 +4,7 @@
   "description": "aurelia wrapper of the ChartJS library",
   "main": "dist/index.js",
   "directories": {
-	"lib": "dist"
+    "lib": "dist"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -46,17 +46,17 @@
     "vinyl-paths": "^2.1.0"
   },
   "jspm": {
-	"directories":{
-		"lib": "dist"
-	},
-	"main": "index.js",
+    "main": "index.js",
+    "directories": {
+      "lib": "dist"
+    },
     "dependencies": {
       "aurelia-framework": "npm:aurelia-framework@^1.0.0-beta.1.0.3",
       "chart": "github:nnnick/Chart.js@^1.0.2"
     },
     "devDependencies": {
-      "babel": "npm:babel-core@^5.8.24",
-      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "babel": "npm:babel-core@^5.8.34",
+      "babel-runtime": "npm:babel-runtime@^5.8.34",
       "core-js": "npm:core-js@^1.1.4"
     }
   }
