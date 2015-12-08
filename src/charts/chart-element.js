@@ -42,18 +42,18 @@ export class ChartElement {
 
         this._modelObserver.observeProperty('height', this._refreshChart);
         this._modelObserver.observeProperty('width', this._refreshChart);
-        this._modelObserver.observeProperty('options', this._refreshChart);
-        this._modelObserver.observeProperty('data', this._refreshChartData);
+        this._modelObserver.observeProperty('options', this._updateChart);
+        this._modelObserver.observeProperty('data', this._updatechart);
         
         this._watchChartData();
     }
 
     _watchChartData(){
         if(this.data != null) {
-            this._modelObserver.observeCollection(this.data.datasets, this._refreshChart);
-            this._modelObserver.observeCollection(this.data.labels, this._refreshChart);
+            this._modelObserver.observeCollection(this.data.datasets, this._updateChart);
+            this._modelObserver.observeCollection(this.data.labels, this._updateChart);
             for(var ds of this.data.datasets) {
-                this._modelObserver.observeCollection(ds.data, this._refreshChart);
+                this._modelObserver.observeCollection(ds.data, this._updateChart);
             }
         }
     }
@@ -83,6 +83,10 @@ export class ChartElement {
         this.canvasElement.width = this.width;
 
         this._createChart();
+    }
+
+    _updateChart(){
+        this._chart.update();
     }
 
     _refreshChartData(){
