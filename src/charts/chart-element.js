@@ -39,24 +39,7 @@ export class ChartElement {
 
     attached(){
         this._createChart();
-
-        this._modelObserver.observeProperty('height', this._refreshChart);
-        this._modelObserver.observeProperty('width', this._refreshChart);
-        this._modelObserver.observeProperty('options', this._updateChart);
-        this._modelObserver.observeProperty('data', this._updatechart);
-        
-        this._watchChartData();
-    }
-
-    _watchChartData(){
-        if(this.data != null) {
-            this._modelObserver.observeCollection(this.data.datasets, this._updateChart);
-            this._modelObserver.observeCollection(this.data.labels, this._updateChart);
-            for(var ds of this.data.datasets) {
-                this._modelObserver.observeCollection(ds.data, this._updateChart);
-            }
-        }
-    }
+    }    
 
     _createChart(){
         if(this._canRedraw === true) {
@@ -65,7 +48,7 @@ export class ChartElement {
                     var canvas = this.canvasElement;
                     var context = canvas.getContext('2d');
                     context.clearRect(0,0,canvas.width, canvas.height);
-                    this._chart = new Chart(context)[this.type](this.data, this.options);
+                    this.chart = new Chart(context)[this.type](this.data, this.options);
                 } catch(e) {
                     this._logger.error(e);
                 }
@@ -74,40 +57,7 @@ export class ChartElement {
             this._canRedraw = false;
             this._beginThrottling();
         }            
-    }
-
-    _refreshChart(){
-        this._chart.destroy();
-
-        this.canvasElement.height = this.height;
-        this.canvasElement.width = this.width;
-
-        this._createChart();
-    }
-
-    _updateChart(){
-        this._chart.update();
-    }
-
-    _refreshChartData(){
-        this._chart.destroy();
-
-        this._modelObserver.disposeCollectionSubscriptions();
-        this._watchChartData();
-
-        this._refreshChart();
-    }
-
-    _hardRefresh(){
-        if(this._chart != null) {
-            this._chart.destroy();
-
-            this.canvasElement.height = this.height;
-            this.canvasElement.width = this.width;
-
-            this._createChart();
-        }        
-    }
+    }    
 
     _isSupportedChartType(){
         if(this.supportedChartTypes.indexOf(this.type) === -1) {
